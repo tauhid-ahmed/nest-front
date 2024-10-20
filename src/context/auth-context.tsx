@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, { useContext, createContext, useState, useLayoutEffect } from "react";
 import { apiClient } from "../api/client";
 import { useNotification } from "./notification-context";
 
@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [username, setUsername] = useState<string>("");
   const { notify } = useNotification();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchUser = async () => {
       const accessToken = localStorage.getItem("accessToken");
 
@@ -41,6 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsSignedIn(true);
       } catch (error: any) {
         handleFetchError(error);
+        setIsSignedIn(false);
       } finally {
         setIsLoading(false);
       }

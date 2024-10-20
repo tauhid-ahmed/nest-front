@@ -9,7 +9,8 @@ import { useAuthentication } from "../context/auth-context";
 import RootLayout from "./layout";
 
 export default function PageRouter() {
-  const { isSignedIn } = useAuthentication();
+  const { isSignedIn, isLoading } = useAuthentication();
+  if (isLoading) return null;
   return (
     <Router>
       <Routes>
