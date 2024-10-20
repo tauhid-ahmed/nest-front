@@ -5,7 +5,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 // baseURL: "http://localhost:3000",
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "https://nest-back-production.up.railway.app",
   withCredentials: true,
 });
 
