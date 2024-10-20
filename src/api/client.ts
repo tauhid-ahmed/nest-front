@@ -2,7 +2,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 // nest-back-production.up.railway.app
 export const apiClient = axios.create({
-  baseURL: "http://nest-back-production.up.railway.app",
+  baseURL: "https://nest-back-production.up.railway.app",
   withCredentials: true,
 });
 
