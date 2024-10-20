@@ -1,8 +1,11 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 // nest-back-production.up.railway.app
+// https://nest-back-production.up.railway.app
+// baseURL: "http://localhost:3000",
+
 export const apiClient = axios.create({
-  baseURL: "https://nest-back-production.up.railway.app",
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 

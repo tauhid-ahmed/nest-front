@@ -6,23 +6,25 @@ import {
 } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 // import { useAuthentication } from "../context/auth-context";
-import { useNotification } from "../context/notification-context";
+import { useNotification } from "@/context/notification-context";
 import { useNavigate } from "react-router-dom";
 
-const POST_LIMIT = 10;
+const POST_LIMIT = 5;
+
 export function findPosts() {
-  // const { token } = useAuthentication();
   // @ts-ignore
   return useInfiniteQuery({
     queryKey: ["posts"],
     queryFn: ({ pageParam = 1 }) =>
-      apiClient.get("/posts", {
-        params: { page: pageParam, limit: POST_LIMIT },
-        // headers: { Authorization: `Bearer ${token}` },
-      }),
-    getNextPageParam: (_lastPage, pages) => pages.length + 1,
+      apiClient.get("/posts", { params: { page: pageParam, limit: POST_LIMIT } }),
+    getNextPageParam: (lastPage: any, pages) => {
+      console.log({ lastPage, pages });
+      if (lastPage.data.data.length < 1) return undefined;
+      return pages.length + 1;
+    },
   });
 }
+
 export function findPost(id: string) {
   return useQuery({
     queryKey: ["post", id],

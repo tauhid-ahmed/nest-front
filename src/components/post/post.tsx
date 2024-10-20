@@ -127,8 +127,6 @@ const PostFooter = ({ publishedTime, views, comments }: FooterProps) => (
 );
 
 export default function Post({ post }: { post: PostProps }) {
-  console.log(post);
-
   return (
     <Link to={`/posts/${post.id}`} style={{ textDecoration: "none" }}>
       <Card

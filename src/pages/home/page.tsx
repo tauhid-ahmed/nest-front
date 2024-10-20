@@ -8,12 +8,12 @@ import PostSkeleton from "@/components/post/post-skeleton";
 import PopularPost from "@/components/post/popular-post";
 
 export default function Layout() {
-  const { isLoading, data, error, status } = useInfiniteScroll(findPosts);
+  const { isLoading, data, error, status, isFetchingNextPage, hasNextPage, ref } =
+    useInfiniteScroll(findPosts);
 
   if (isLoading) return <PostSkeleton />;
   if (status === "error") return <p>Error: {(error as Error).message}</p>;
 
-  console.log(data);
   return (
     <>
       <Container maxWidth="lg">
@@ -38,6 +38,13 @@ export default function Layout() {
                   ))}
                 </React.Fragment>
               ))}
+              <Box sx={{ display: "flex", justifyContent: "center" }} ref={ref}>
+                {isFetchingNextPage
+                  ? "Loading more..."
+                  : hasNextPage
+                  ? "Load More"
+                  : "Nothing more to load"}
+              </Box>
             </Box>
           </Box>
           <Aside>
