@@ -131,29 +131,29 @@ const EditPostDeatails: React.FC<PostEditorProps> = ({ post }: any) => {
     const updatedContent = await handleImagesInContent(content);
     const uploadedCoverImageUrl = await uploadCoverImage();
 
-    // try {
-    //   if (post?.id) {
-    //     updatePostMutate({
-    //       id: post.id,
-    //       payload: {
-    //         title,
-    //         subtitle,
-    //         content: updatedContent,
-    //         cover_image: uploadedCoverImageUrl,
-    //       },
-    //     });
-    //   } else {
-    //     createPostMutate({
-    //       title,
-    //       subtitle,
-    //       content,
-    //       user_id: activeUserId,
-    //       cover_image: uploadedCoverImageUrl,
-    //     });
-    //   }
-    // } catch (error) {
-    //   notify("Error saving post:", "error");
-    // }
+    try {
+      if (post?.id) {
+        updatePostMutate({
+          id: post.id,
+          payload: {
+            title,
+            subtitle,
+            content: updatedContent,
+            cover_image: uploadedCoverImageUrl,
+          },
+        });
+      } else {
+        createPostMutate({
+          title,
+          subtitle,
+          content,
+          user_id: activeUserId,
+          cover_image: uploadedCoverImageUrl,
+        });
+      }
+    } catch (error) {
+      notify("Error saving post:", "error");
+    }
   };
 
   return (
