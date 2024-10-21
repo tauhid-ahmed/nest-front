@@ -1,8 +1,0 @@
-.ql-container {
-  height: 100%;
-}
-.ql-editor {
-  overflow-y: auto; /* Scrollbar for editor area */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
-  scroll-behavior: smooth; /* Smooth scroll behavior */
-}

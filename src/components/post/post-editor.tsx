@@ -131,29 +131,29 @@ const EditPostDeatails: React.FC<PostEditorProps> = ({ post }: any) => {
     const updatedContent = await handleImagesInContent(content);
     const uploadedCoverImageUrl = await uploadCoverImage();
 
-    try {
-      if (post?.id) {
-        updatePostMutate({
-          id: post.id,
-          payload: {
-            title,
-            subtitle,
-            content: updatedContent,
-            cover_image: uploadedCoverImageUrl,
-          },
-        });
-      } else {
-        createPostMutate({
-          title,
-          subtitle,
-          content,
-          user_id: activeUserId,
-          cover_image: uploadedCoverImageUrl,
-        });
-      }
-    } catch (error) {
-      notify("Error saving post:", "error");
-    }
+    // try {
+    //   if (post?.id) {
+    //     updatePostMutate({
+    //       id: post.id,
+    //       payload: {
+    //         title,
+    //         subtitle,
+    //         content: updatedContent,
+    //         cover_image: uploadedCoverImageUrl,
+    //       },
+    //     });
+    //   } else {
+    //     createPostMutate({
+    //       title,
+    //       subtitle,
+    //       content,
+    //       user_id: activeUserId,
+    //       cover_image: uploadedCoverImageUrl,
+    //     });
+    //   }
+    // } catch (error) {
+    //   notify("Error saving post:", "error");
+    // }
   };
 
   return (
@@ -161,10 +161,7 @@ const EditPostDeatails: React.FC<PostEditorProps> = ({ post }: any) => {
       <Typography variant="h3" component={"h1"} my="20px">
         {post ? "Edit Post" : "Create a New Post"}
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ height: "60vh", display: "flex", flexDirection: "column" }}>
+      <Box component="form" onSubmit={handleSubmit}>
         <TextField
           fullWidth
           label="Title"
@@ -185,21 +182,34 @@ const EditPostDeatails: React.FC<PostEditorProps> = ({ post }: any) => {
           sx={{ marginBottom: 2 }}
         />
         <span>{errors.subtitle}</span>
-        <ReactQuill
-          value={content}
-          onChange={setContent}
-          placeholder="Write something..."
-          theme="snow"
-          style={{ marginBottom: 20, flex: 1 }}
-          modules={{
-            toolbar: [
-              [{ header: [1, 2, false] }],
-              ["bold", "italic", "underline"],
-              ["link", "image"],
-              ["clean"],
-            ],
-          }}
-        />
+        <Box
+          sx={{
+            height: "50vh",
+            display: "flex",
+            flexDirection: "column",
+          }}>
+          <div style={{ flex: 1, overflowY: "auto", position: "relative" }}>
+            <ReactQuill
+              value={content}
+              onChange={setContent}
+              placeholder="Write something..."
+              theme="snow"
+              style={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, false] }],
+                  ["bold", "italic", "underline"],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+              }}
+            />
+          </div>
+        </Box>
         <span>{errors.content}</span>
 
         <Stack sx={{ marginTop: 8 }} direction="row" spacing={1}>
